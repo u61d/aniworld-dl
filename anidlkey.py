@@ -1653,6 +1653,8 @@ class AniDL:
         except Exception as e:
             return available_languages if available_languages else ["Ger Dub"]
 
+        return available_languages if available_languages else ["Ger Dub"]
+
     def _get_currently_selected_language(self, container) -> str:
         """Detect the currently selected language by looking for selectedLanguage class"""
         try:
@@ -1807,6 +1809,8 @@ class AniDL:
 
         except Exception as e:
             return movies
+
+        return movies
 
     def get_episode_hosts(
         self, episode_url: str, language: str = "Ger Dub"
