@@ -1900,8 +1900,7 @@ class AniDL:
             # Cache the hosts for this episode-language pair
             self._host_cache[cache_key] = hosts
 
-            if not hosts:
-                return False
+            return hosts
 
         except Exception as e:
             return hosts
@@ -2471,8 +2470,7 @@ class SeriesCrawler:
             # Cache the hosts for this episode-language pair
             self._host_cache[cache_key] = hosts
 
-            if not hosts:
-                return False
+            return hosts
 
         except Exception as e:
             return hosts
@@ -2598,8 +2596,7 @@ class SeriesCrawler:
             for ep in display_episodes:
                 try:
                     # Check if episode has hosts in selected language
-                    lang_key = "1" if selected_lang == "Ger Dub" else "2"
-                    hosts = self.get_episode_hosts(ep["url"], language_key=lang_key)
+                    hosts = self.get_episode_hosts(ep["url"], language=selected_lang)
                     status = f"✓ {len(hosts)} hosts" if hosts else "✗ No hosts"
 
                     table.add_row(
@@ -2661,8 +2658,7 @@ class SeriesCrawler:
 
     def select_series_host(self, episode, lang):
         """Let user select host for downloading"""
-        lang_key = "1" if lang == "Ger Dub" else "2"
-        hosts = self.get_episode_hosts(episode["url"], language_key=lang_key)
+        hosts = self.get_episode_hosts(episode["url"], language=lang)
 
         if not hosts:
             self.console.print("[red]No hosts found for this language![/red]")
@@ -2693,12 +2689,10 @@ class SeriesCrawler:
 
     def download_series_episodes(self, details, selected_eps, lang, host_info):
         """Download selected episodes using the selected host"""
-        lang_key = "1" if lang == "Ger Dub" else "2"
-
         for ep in selected_eps:
             try:
                 # Get hosts for this specific episode
-                hosts = self.get_episode_hosts(ep["url"], language_key=lang_key)
+                hosts = self.get_episode_hosts(ep["url"], language=lang)
 
                 # Find the matching host
                 match = next(

@@ -2,6 +2,7 @@ requests>=2.31.0
 cloudscraper>=1.2.71
 beautifulsoup4>=4.12.0
 rich>=13.7.0
+textual>=0.58.0
 yt-dlp>=2024.1.0
 qrcode>=7.4.2
 Pillow>=10.0.0

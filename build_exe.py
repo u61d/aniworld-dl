@@ -40,7 +40,7 @@ def build_executable():
     # PyInstaller arguments - Updated for proper bundling
     args = [
         main_script,
-        "--name=ShadowStream",
+        "--name=AniDL",
         "--onefile",
         "--console",
         # Include all necessary Python files
@@ -91,14 +91,14 @@ def build_executable():
         "--exclude-module=scipy",
     ]
 
-    print("Building ShadowStream executable...")
+    print("Building AniDL executable...")
     print("This may take a few minutes...")
     print("\nConfiguration:")
     print(f"  Main script: {main_script}")
     print(f"  DL script: {dl_script}")
     print(f"  KeyAuth script: {keyauth_script}")
     print(f"  Build type: Single file executable")
-    print(f"  Platform: {sys.platform}")
+    print(f"  Platform: windows")
 
     try:
         PyInstaller.__main__.run(args)
@@ -107,7 +107,7 @@ def build_executable():
         print("✅ BUILD COMPLETED SUCCESSFULLY!")
         print("=" * 60)
         print(
-            f"📁 Executable location: {os.path.join(current_dir, 'dist', 'ShadowStream.exe')}"
+            f"📁 Executable location: {os.path.join(current_dir, 'dist', 'AniDL.exe')}"
         )
         print("\n📋 SECURITY FEATURES:")
         print("   • All scripts properly bundled")
@@ -159,7 +159,7 @@ def clean_build_artifacts():
 
 
 if __name__ == "__main__":
-    print("ShadowStream Executable Builder")
+    print("AniDL Executable Builder")
     print("=" * 40)
 
     # Check if user wants to clean first
@@ -175,4 +175,4 @@ if __name__ == "__main__":
         sys.exit(1)
     else:
         print(f"\n🎉 Ready to test your executable!")
-        print(f"Run: .{os.sep}dist{os.sep}ShadowStream.exe")
+        print(f"Run: .{os.sep}dist{os.sep}anidl.exe")

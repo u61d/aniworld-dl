@@ -31,11 +31,52 @@ On first run you'll be asked for a KeyAuth license key. Set `auto_login` in
 `settings.json` to skip re-entering it on future runs (stored locally in
 `auth_data.json`, which is gitignored).
 
+The classic interactive prompts remember your last few choices: the
+`anime`/`series` search mode, and (per the `remember_choices` setting,
+on by default) the language and host you picked last time, so returning
+sessions ask fewer questions. Batch downloads also show a per-episode
+progress readout with a running ETA, and a summary table when they finish.
+
+### Non-interactive / scriptable mode
+
+Pass `--query` to skip the menu entirely - useful for scripting or aliases:
+
+```bash
+python anidlkey.py --query "One Piece" --episodes 1-5
+python anidlkey.py -q "One Piece" -n 2 -e "1,3,5" -l "Ger Dub" --host VOE
+```
+
+| Flag | Description |
+| --- | --- |
+| `-q`, `--query` | Search query. Presence of this flag switches to non-interactive mode. |
+| `-n`, `--select` | Which search result to use, 1-indexed (default: `1`, the top hit). |
+| `-e`, `--episodes` | Episode selection: `1`, `1-5`, `1,3,5`, `1-3,7-9`, or `all` (default: `1`). |
+| `-l`, `--language` | Language to use, e.g. `"Ger Dub"`. Falls back to your saved default, then auto-picks the first available. |
+| `--host` | Host/server to use, e.g. `VOE`. Same fallback behavior as `--language`. |
+| `-t`, `--type` | `anime` (default) or `series`. Non-interactive `series` isn't implemented yet - omit `--query` for the interactive series flow. |
+
+Non-interactive mode never prompts: anything not resolved by a flag or a
+saved default is auto-picked (and printed, so you can see what was chosen).
+
+### TUI mode
+
+```bash
+python anidlkey.py --tui
+```
+
+Launches an arrow-key browser (built with [Textual](https://github.com/Textualize/textual))
+for search results and episode selection, instead of typing numbers: type a
+query, arrow through results, then toggle episodes with `space` or type a
+quick range (`1-5`, `all`, ...) into the filter box. Press `f5` or click
+"Download selected" to hand off to the normal download pipeline (language/host
+prompts, progress, summary table).
+
 ## Configuration
 
 App preferences live in `settings.json` (download folder, quality, theme,
 etc.) — see the in-app settings menu for the full list, including a
-`Privacy` section.
+`Privacy` section and an `Automation` section (`remember_choices`,
+`last_search_type`).
 
 ### License-abuse webhook (optional)
 
@@ -71,7 +112,8 @@ committed — they're large, platform-specific, and reproducible from source.
 
 ## Project layout
 
-- `anidlkey.py` — main CLI entry point (scraping UI, license login flow)
+- `anidlkey.py` — main CLI entry point (scraping UI, license login flow, `--query`/`--tui` flags)
+- `tui.py` — optional Textual-based arrow-key browser (`--tui`)
 - `dl.py` — episode/stream extraction and download engine
 - `mal.py` — MyAnimeList (Jikan API) metadata lookups
 - `keyauth.py` — KeyAuth licensing client
