@@ -1,0 +1,12 @@
+__pycache__/
+build/
+dist/
+downloads/
+auth_data.json
+secrets.json
+*.log
+*.spec
+*.pyc
+.venv/
+venv/
+.env

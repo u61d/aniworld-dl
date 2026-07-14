@@ -1,0 +1,22 @@
+{
+    "download_folder": "downloads",
+    "default_language": "",
+    "default_host": "VOE",
+    "auto_login": true,
+    "clear_console": true,
+    "download_quality": "HD",
+    "verbose_logging": false,
+    "theme": "light",
+    "check_updates": true,
+    "timeout": 30,
+    "proxy": null,
+    "max_concurrent_downloads": 3,
+    "auto_retry": true,
+    "retry_attempts": 3,
+    "notification_sounds": true,
+    "auto_organize": false,
+    "compression_level": "medium",
+    "download_speed_limit": null,
+    "ui_animation_speed": "normal",
+    "license_telemetry": true
+}
